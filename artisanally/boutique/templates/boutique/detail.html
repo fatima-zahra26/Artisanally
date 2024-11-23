@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>{{ produit.nom }}</h2>
+<h3>€{{ produit.prix }}</h3>
+<img src="{{ produit.image.url }}" alt="{{ produit.nom }}" style="max-width: 250px;">
+<p>{{ produit.description }}</p>
+<p>{{ produit.quantite }} en stock</p>
+
+{% if user.is_authenticated %}
+    <p>
+        <a href="{% url 'ajouter_au_panier' produit.slug %}" style="color: #D2B48C; font-weight: bold;">
+            Ajouter au panier
+        </a>
+    </p>
+{% else %}
+    <p style="color: red; font-weight: bold;">
+        Vous devez être connecté pour ajouter ce produit au panier.
+        <a href="{% url 'connexion' %}" style="color: #D2B48C;">Connectez-vous ici</a>.
+    </p>
+{% endif %}
+
+{% endblock %}

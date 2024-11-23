@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-container">
+    <h1 class="page-title">Liste des Produits</h1>
+
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in produits %}
+                <tr>
+                    <td>
+                        {% if produit.image %}
+                            <img src="{{ produit.image.url }}" alt="{{ produit.nom }}" style="max-width: 100px;">
+                        {% else %}
+                            Pas d'image
+                        {% endif %}
+                    </td>
+                    <td>{{ produit.nom }}</td>
+                    <td>{{ produit.prix }} €</td>
+                    <td>
+                        <a href="{{ produit.get_absolute_url }}">Voir le produit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

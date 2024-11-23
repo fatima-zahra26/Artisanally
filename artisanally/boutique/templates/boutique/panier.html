@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Votre Panier</h1>
+{% for item in commandes %}
+    <div>
+        <h2>{{ item.commande.produit.nom }}</h2>
+        <img src="{{ item.commande.produit.image.url }}" alt="{{ item.commande.produit.nom }}" style="max-width: 250px;">
+        <p>Quantité : {{ item.commande.quantite }}</p>
+        <p>Prix unitaire : {{ item.commande.produit.prix }} €</p>
+        <p>Total : {{ item.total }} €</p>
+    </div>
+    <hr>
+{% endfor %}
+
+<h2>Total du panier : {{ total_panier }} €</h2>
+
+<a href="{% url 'supprimer-panier' %}">Supprimer votre panier</a>
+
+
+{% endblock %}

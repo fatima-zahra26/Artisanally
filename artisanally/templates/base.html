@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisanally</title>
+    <style>
+        /* Ajout du style global */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Style de l'en-tête */
+        h1 {
+            text-align: center;
+            color: #D2B48C;
+            margin: 20px 0;
+        }
+
+        /* Conteneur global */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Style de navigation */
+        nav {
+            background-color: #D2B48C;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Centrage du contenu principal */
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        /* Style pour les tableaux */
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #D2B48C;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'index' %}">
+            <h1>Artisanally</h1>
+        </a>
+    </header>
+    <nav>
+        {% if user.is_authenticated %}
+            <span>Bienvenue, {{ user.username }}</span>
+            <a href="{% url 'logout' %}">Déconnexion</a>
+        {% else %}
+            <a href="{% url 'connexion' %}">Connexion</a>
+            <a href="{% url 'signe' %}">S'inscrire</a>
+        {% endif %}
+
+        {% if user.is_authenticated and user.panier %}
+            <a href="{% url 'panier' %}">
+                Voir votre panier ({{ user.panier.commandes.count }})
+            </a>
+        {% endif %}
+    </nav>
+    <main class="container content">
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
